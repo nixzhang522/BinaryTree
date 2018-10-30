@@ -12,6 +12,7 @@ class BTViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     let dataArray = [["text": "二叉树", "vc": "ConceptViewController"],
+                     ["text": "二叉排序树", "vc": "SortViewController"],
                      ["text": "平衡二叉树", "vc": "BalanceViewController"],
                      ["text": "B树", "vc": "BViewController"],
                      ["text": "B+树", "vc": "BAddViewController"],

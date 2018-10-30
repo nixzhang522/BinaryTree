@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0F809A218817C0002BF31C /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F8099218817C0002BF31C /* SortViewController.swift */; };
 		3F7481A82181AE1200007DCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7481A72181AE1200007DCD /* AppDelegate.swift */; };
 		3F7481AA2181AE1200007DCD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7481A92181AE1200007DCD /* ViewController.swift */; };
 		3F7481AD2181AE1200007DCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F7481AB2181AE1200007DCD /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F0F8099218817C0002BF31C /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
 		3F7481A42181AE1200007DCD /* BinaryTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinaryTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7481A72181AE1200007DCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F7481A92181AE1200007DCD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				3F7481B92181AE6300007DCD /* BTViewController.swift */,
 				3F7481BA2181AE6300007DCD /* BTViewController.xib */,
 				3F7481BD2181B1B800007DCD /* ConceptViewController.swift */,
+				3F0F8099218817C0002BF31C /* SortViewController.swift */,
 				3F7481BF2181B1CE00007DCD /* BalanceViewController.swift */,
 				3F7481C12181B1E200007DCD /* BViewController.swift */,
 				3F7481C32181B1F900007DCD /* BAddViewController.swift */,
@@ -159,6 +162,7 @@
 			files = (
 				3F7481AA2181AE1200007DCD /* ViewController.swift in Sources */,
 				3F7481C22181B1E200007DCD /* BViewController.swift in Sources */,
+				3F0F809A218817C0002BF31C /* SortViewController.swift in Sources */,
 				3F7481C62181B22C00007DCD /* BMinusViewController.swift in Sources */,
 				3F7481BE2181B1B800007DCD /* ConceptViewController.swift in Sources */,
 				3F7481C02181B1CE00007DCD /* BalanceViewController.swift in Sources */,
