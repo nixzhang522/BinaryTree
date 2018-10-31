@@ -23,7 +23,7 @@ class BSTree {
     
     func searchBinaryTree(items: [Int]) {
         for item in items {
-            insert(item: item)
+            _ = insert(item: item)
         }
     }
 
@@ -67,7 +67,7 @@ class BSTree {
         var parent: BSTreeNode?
         while(cur != nil) {
             if(cur?.value == item) {
-                var delNode = cur
+                var delNode: BSTreeNode? = cur
                 if(cur?.leftNode != nil && cur?.rightNode != nil) {
                     //删除左右孩子都不为NULL的情况
                     //可以选择左树的最右结点或者右树的最左结点交换删除
@@ -101,6 +101,7 @@ class BSTree {
                     }
                     
                 }
+                print("delNode.value=\(delNode?.value ?? -404)")
                 delNode = nil
                 return true
             } else if((cur?.value)! < item) {
@@ -114,31 +115,39 @@ class BSTree {
         return false
     }
     
-    func removeRecursive(rootNode: BSTreeNode?, item: Int) -> Bool {
-        var root = rootNode
-        if (root == nil) {
-            return false
-        }
-        if ((root?.value)! < item) {
-            return self.removeRecursive(rootNode: root?.rightNode, item: item)
-        } else if((root?.value)! > item) {
-            return self.removeRecursive(rootNode: root?.leftNode, item:item)
+    func removeR(root: BSTreeNode?, item: Int) -> Bool {
+        guard var node = root else { return false }
+        return self.removeRecursive(root: &node, item: item)
+    }
+    
+    func removeRecursive(root: inout BSTreeNode, item: Int) -> Bool {
+
+        if ((root.value)! < item) {
+            guard root.rightNode != nil else {
+                return false
+            }
+            return self.removeRecursive(root: &root.rightNode!, item: item)
+        } else if ((root.value)! > item) {
+            guard root.leftNode != nil else {
+                return false
+            }
+            return self.removeRecursive(root: &root.leftNode!, item:item)
         } else {
-            var del = root
-            if (root?.leftNode == nil) {
-                root = root?.rightNode
-            } else if(root?.rightNode == nil) {
-                root = root?.leftNode
+            var del: BSTreeNode? = root
+            if (root.leftNode == nil) {
+                root = root.rightNode!
+            } else if(root.rightNode == nil) {
+                root = root.leftNode!
             } else {
                 var minright = root //寻找右树的最左结点进行key值的交换
-                minright = root?.rightNode
-    
-                while(minright?.leftNode != nil) {
-                    minright = minright?.leftNode
+                minright = root.rightNode!
+                while (minright.leftNode != nil) {
+                    minright = minright.leftNode!
                 }
-                root?.value = minright?.value
+                root.value = minright.value
                 del = minright
             }
+            print("del.value=\(del?.value ?? -404)")
             del = nil
             return true
         }
@@ -262,12 +271,13 @@ class SortViewController: UIViewController {
         print("findResult1=\(findResult1), findResult2=\(findResult2)")
         
         print("========================")
-        let result2 = tree.removeRecursive(rootNode: tree.rootNode, item: 7)
+        let _ = tree.removeR(root: tree.rootNode, item: 7)
+        //let result2 = tree.removeRecursive(rootNode: tree.rootNode, item: 7)
         tree.levelTraverse(tree.rootNode)
-        let result1 = tree.remove(item: 7)
-        print("************************")
-        tree.levelTraverse(tree.rootNode)
-        print("result1=\(result1), result2=\(result2)")
+//        let result1 = tree.remove(item: 7)
+//        print("************************")
+//        tree.levelTraverse(tree.rootNode)
+//        print("result1=\(result1), result2=\(result2)")
         
         // Do any additional setup after loading the view.
     }
