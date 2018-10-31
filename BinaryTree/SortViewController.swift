@@ -101,6 +101,7 @@ class BSTree {
                     }
                 }
                 print("delNode.value=\(delNode?.value ?? -404)")
+                deleteNode(delNode)
                 delNode = nil
                 return true
             } else if((cur?.value)! < item) {
@@ -112,6 +113,29 @@ class BSTree {
             }
         }
         return false
+    }
+    
+    func deleteNode(_ targetNode: BSTreeNode?) {
+        let root = self.rootNode
+        var queue = [BSTreeNode]()
+        queue.append(root!)
+        while (queue.count > 0) {
+            let node = queue.removeFirst()
+            if let left = node.leftNode {
+                queue.append(left)
+            }
+            if let right = node.rightNode {
+                queue.append(right)
+            }
+            if node.leftNode == targetNode {
+                node.leftNode = nil
+                break
+            }
+            if node.rightNode == targetNode {
+                node.rightNode = nil
+                break
+            }
+        }
     }
     
     func removeRecursive(root: inout BSTreeNode?, item: Int) -> Bool {
@@ -144,6 +168,7 @@ class BSTree {
                 del = minright
             }
             print("del.value=\(del?.value ?? -404)")
+            //deleteNode(del)
             del = nil
             return true
         }
@@ -267,13 +292,13 @@ class SortViewController: UIViewController {
         print("findResult1=\(findResult1), findResult2=\(findResult2)")
         
         print("========================")
-        let result1 = tree.removeRecursive(root: &(tree.rootNode), item: 7)
+        let result1 = tree.removeRecursive(root: &(tree.rootNode), item: 2)
         tree.levelTraverse(tree.rootNode)
-        let result2 = tree.remove(item: 7)
+        let result2 = tree.remove(item: 2)
         print("************************")
         tree.levelTraverse(tree.rootNode)
         print("result1=\(result1), result2=\(result2)")
-        
+
         // Do any additional setup after loading the view.
     }
 
