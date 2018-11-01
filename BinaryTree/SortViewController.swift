@@ -122,21 +122,15 @@ class BSTree {
         if (root == nil) {
             return false
         }
-        if ((root?.value)! < item) {
-            guard root?.rightNode != nil else {
-                return false
-            }
+        if (root!.value! < item) {
             return self.removeRecursive(root: &(root!.rightNode), item: item)
-        } else if ((root?.value)! > item) {
-            guard root?.leftNode != nil else {
-                return false
-            }
+        } else if (root!.value! > item) {
             return self.removeRecursive(root: &(root!.leftNode), item:item)
         } else {
             var preNode: BSTreeNode? = root
             if (root?.leftNode == nil) {
                 root = root?.rightNode
-            } else if(root?.rightNode == nil) {
+            } else if (root?.rightNode == nil) {
                 root = root?.leftNode
             } else {
                 var minright = root //寻找右树的最左结点进行key值的交换
@@ -186,7 +180,7 @@ class BSTree {
         return false
     }
     
-    
+    // MARK: - Traverse
     func preOrderTraverse(_ tree: BSTreeNode?) {
         if let currentNode: BSTreeNode = tree {
             print(currentNode.value ?? "none")
@@ -275,12 +269,12 @@ class SortViewController: UIViewController {
         print("findResult1=\(findResult1), findResult2=\(findResult2)")
         
         print("===========removeRecursive=============")
-        let result1 = tree.removeRecursive(root: &(tree.rootNode), item: 6)
+        let result1 = tree.removeRecursive(root: &(tree.rootNode), item: 5)
         tree.levelTraverse(tree.rootNode)
         
         let tree2 = BSTree.init()
         tree2.searchBinaryTree(items: array)
-        let result2 = tree2.remove(item: 6)
+        let result2 = tree2.remove(item: 5)
         print("***********remove*************")
         tree2.levelTraverse(tree2.rootNode)
         print("result1=\(result1), result2=\(result2)")
