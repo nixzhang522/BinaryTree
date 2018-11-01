@@ -67,16 +67,21 @@ class BSTree {
         var parent: BSTreeNode?
         while(cur != nil) {
             if(cur?.value == item) {
-                var delNode: BSTreeNode? = cur
+                var preNode: BSTreeNode? = cur
                 if(cur?.leftNode != nil && cur?.rightNode != nil) {
                     //删除左右孩子都不为NULL的情况
                     //可以选择左树的最右结点或者右树的最左结点交换删除
                     var minright = cur?.rightNode
+                    if minright?.leftNode == nil {
+                        cur?.value = minright?.value
+                        cur?.rightNode = minright?.rightNode
+                        return true
+                    }
                     while(minright?.leftNode != nil) {
+                        preNode = minright
                         minright = minright?.leftNode
                     }
                     cur?.value = minright?.value
-                    delNode = minright
                 } else if(cur?.leftNode == nil) {
                     //有一种情况是，删除根节点时，根节点只有一个子树，即按照左子树为NULL
                     //或者右子树为NULL的情况处理，此时根节点的parent是NULL，所以需要单独处理！
@@ -100,9 +105,7 @@ class BSTree {
                         }
                     }
                 }
-                print("delNode.value=\(delNode?.value ?? -404)")
-                deleteNode(delNode)
-                delNode = nil
+                preNode?.leftNode = nil
                 return true
             } else if((cur?.value)! < item) {
                 parent = cur
@@ -113,29 +116,6 @@ class BSTree {
             }
         }
         return false
-    }
-    
-    func deleteNode(_ targetNode: BSTreeNode?) {
-        let root = self.rootNode
-        var queue = [BSTreeNode]()
-        queue.append(root!)
-        while (queue.count > 0) {
-            let node = queue.removeFirst()
-            if let left = node.leftNode {
-                queue.append(left)
-            }
-            if let right = node.rightNode {
-                queue.append(right)
-            }
-            if node.leftNode == targetNode {
-                node.leftNode = nil
-                break
-            }
-            if node.rightNode == targetNode {
-                node.rightNode = nil
-                break
-            }
-        }
     }
     
     func removeRecursive(root: inout BSTreeNode?, item: Int) -> Bool {
@@ -153,7 +133,7 @@ class BSTree {
             }
             return self.removeRecursive(root: &(root!.leftNode), item:item)
         } else {
-            var del = root
+            var preNode: BSTreeNode? = root
             if (root?.leftNode == nil) {
                 root = root?.rightNode
             } else if(root?.rightNode == nil) {
@@ -161,15 +141,18 @@ class BSTree {
             } else {
                 var minright = root //寻找右树的最左结点进行key值的交换
                 minright = root?.rightNode
+                if minright?.leftNode == nil {
+                    root?.value = minright?.value
+                    root?.rightNode = minright?.rightNode
+                    return true
+                }
                 while (minright?.leftNode != nil) {
+                    preNode = minright
                     minright = minright?.leftNode
                 }
                 root?.value = minright?.value
-                del = minright
             }
-            print("del.value=\(del?.value ?? -404)")
-            //deleteNode(del)
-            del = nil
+            preNode?.leftNode = nil
             return true
         }
     }
@@ -291,12 +274,15 @@ class SortViewController: UIViewController {
         let findResult2 = tree.findRecursive(rootNode: tree.rootNode, item: 3)
         print("findResult1=\(findResult1), findResult2=\(findResult2)")
         
-        print("========================")
-        let result1 = tree.removeRecursive(root: &(tree.rootNode), item: 2)
+        print("===========removeRecursive=============")
+        let result1 = tree.removeRecursive(root: &(tree.rootNode), item: 6)
         tree.levelTraverse(tree.rootNode)
-        let result2 = tree.remove(item: 2)
-        print("************************")
-        tree.levelTraverse(tree.rootNode)
+        
+        let tree2 = BSTree.init()
+        tree2.searchBinaryTree(items: array)
+        let result2 = tree2.remove(item: 6)
+        print("***********remove*************")
+        tree2.levelTraverse(tree2.rootNode)
         print("result1=\(result1), result2=\(result2)")
 
         // Do any additional setup after loading the view.
