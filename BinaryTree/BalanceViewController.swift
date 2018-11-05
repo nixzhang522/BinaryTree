@@ -284,7 +284,7 @@ class BalanceViewController: UIViewController {
                   *              *   *
                    1            7      9
          */
-//        let array = [5, 2, 4, 6, 9, 0, 3, 7, 8, 1]
+        //let array = [5, 2, 4, 6, 9, 0, 3, 7, 8, 1]
         let array = [5, 2, 4]
         let tree = BBalTree.init()
         tree.createBalanceBinaryTree(items: array)
