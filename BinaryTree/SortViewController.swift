@@ -189,27 +189,14 @@ class BSTree {
         }
     }
     
-    func depthOrderTraverse(_ tree: BSTreeNode?) {
-        guard let root = tree else {
-            return
-        }
-        var queue = [BSTreeNode]()
-        queue.append(root)
-        while (queue.count > 0) {
-            let node = queue.removeLast()
-            print(node.value ?? "none")
-            if let right = node.rightNode {
-                queue.append(right)
-            }
-            if let left = node.leftNode {
-                queue.append(left)
-            }
+    func inOrderTraverse(_ tree: BSTreeNode?) {
+        if let currentNode: BSTreeNode = tree {
+            self.inOrderTraverse(currentNode.leftNode)
+            print(currentNode.value ?? "none")
+            self.inOrderTraverse(currentNode.rightNode)
         }
     }
-    
-    /*
-     层次遍历
-     */
+
     func levelTraverse(_ tree: BSTreeNode?) {
         guard let root = tree else {
             return
@@ -255,28 +242,33 @@ class SortViewController: UIViewController {
         let array = [5, 2, 4, 6, 9, 0, 3, 7, 8, 1]
         let tree = BSTree.init()
         tree.searchBinaryTree(items: array)
+        print("************levelTraverse************")
         //5 2 6 0 4 9 1 3 7 8
         tree.levelTraverse(tree.rootNode)
-        print("************************")
+        print("************preOrderTraverse************")
         //5 2 0 1 4 3 6 9 7 8
         tree.preOrderTraverse(tree.rootNode)
-        print("************************")
+        print("************inOrderTraverse************")
         //5 2 0 1 4 3 6 9 7 8
-        tree.depthOrderTraverse(tree.rootNode)
-        
+        tree.inOrderTraverse(tree.rootNode)
+
         let findResult1 = tree.find(item: 3)
         let findResult2 = tree.findRecursive(rootNode: tree.rootNode, item: 3)
         print("findResult1=\(findResult1), findResult2=\(findResult2)")
         
-        print("===========removeRecursive=============")
+        print("===========removeRecursive  levelTraverse=============")
         let result1 = tree.removeRecursive(root: &(tree.rootNode), item: 5)
         tree.levelTraverse(tree.rootNode)
+        print("===========removeRecursive  inOrder=============")
+        tree.inOrderTraverse(tree.rootNode)
         
         let tree2 = BSTree.init()
         tree2.searchBinaryTree(items: array)
         let result2 = tree2.remove(item: 5)
-        print("***********remove*************")
+        print("***********remove  levelTraverse*************")
         tree2.levelTraverse(tree2.rootNode)
+        print("===========remove  inOrder=============")
+        tree2.inOrderTraverse(tree2.rootNode)
         print("result1=\(result1), result2=\(result2)")
 
         // Do any additional setup after loading the view.
