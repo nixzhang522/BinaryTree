@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BSTreeNode: NSObject {
+class BSTreeNode {
     var leftNode: BSTreeNode?
     var rightNode: BSTreeNode?
     var value: Int?

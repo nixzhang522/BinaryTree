@@ -23,20 +23,13 @@ import UIKit
  4.具有n个结点的完全二叉树的深度为log2n + 1 （向下取整，比如3.5，就取3）。
     基于完全二叉树的特点，我们假设完全二叉树的深度为k, 那么二叉树的结点个数的范围为2(k-1)-1 <= n <= 2k-1。
  */
-class BTreeNode: NSObject {
+class BTreeNode {
     var leftNode: BTreeNode?
     var rightNode: BTreeNode?
     var value: String?
     
     init(value: String) {
         self.value = value
-    }
-    
-    override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? BTreeNode else {
-            return false
-        }
-        return leftNode == other.leftNode && rightNode == other.rightNode && value == other.value
     }
 }
 
@@ -169,7 +162,7 @@ class BTree {
         while(nodes.count > 0) {
             cur = nodes.last
             //假设当前结点没有孩子结点或者孩子节点都已被訪问过
-            if((cur?.leftNode == nil && cur?.rightNode == nil) || (pre != nil && (pre == cur?.leftNode || pre == cur?.rightNode))) {
+            if((cur?.leftNode == nil && cur?.rightNode == nil) || (pre != nil && (pre === cur?.leftNode || pre === cur?.rightNode))) {
                 print(cur?.value ?? "None")
                 nodes.removeLast()
                 pre = cur
